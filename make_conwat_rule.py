@@ -1,4 +1,4 @@
-for i in range(512):
+for i in range(1024):
     bits = '{0:09b}'.format(i)
     s = bits.count('1')
     c = int(bits[4])
