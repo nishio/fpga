@@ -1,6 +1,6 @@
-`define WIDTH = 160;
-`define HEIGHT = 120;
-`define VRAM_SIZE = WIDTH * HEIGHT;
+`define WIDTH 160;
+`define HEIGHT 120;
+`define VRAM_SIZE (WIDTH * HEIGHT);
 
 module VGA(clk, rgb_out, hsync, vsync, write_addr, wdata, write_en, reset_vram);
 	input clk;
@@ -94,12 +94,205 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	output hsync, vsync;
    output [2:0] rgb;
 
+	reg [166:0] lfsr = 166'h0123456789ABCDEF_CAFEBABE_DEADBEEF;
+	always @(posedge clk) begin
+		lfsr[0] <= ^{lfsr[160], lfsr[166]};
+		lfsr[1] <= lfsr[0];
+		lfsr[2] <= lfsr[1];
+		lfsr[3] <= lfsr[2];
+		lfsr[4] <= lfsr[3];
+		lfsr[5] <= lfsr[4];
+		lfsr[6] <= lfsr[5];
+		lfsr[7] <= lfsr[6];
+		lfsr[8] <= lfsr[7];
+		lfsr[9] <= lfsr[8];
+		lfsr[10] <= lfsr[9];
+		lfsr[11] <= lfsr[10];
+		lfsr[12] <= lfsr[11];
+		lfsr[13] <= lfsr[12];
+		lfsr[14] <= lfsr[13];
+		lfsr[15] <= lfsr[14];
+		lfsr[16] <= lfsr[15];
+		lfsr[17] <= lfsr[16];
+		lfsr[18] <= lfsr[17];
+		lfsr[19] <= lfsr[18];
+		lfsr[20] <= lfsr[19];
+		lfsr[21] <= lfsr[20];
+		lfsr[22] <= lfsr[21];
+		lfsr[23] <= lfsr[22];
+		lfsr[24] <= lfsr[23];
+		lfsr[25] <= lfsr[24];
+		lfsr[26] <= lfsr[25];
+		lfsr[27] <= lfsr[26];
+		lfsr[28] <= lfsr[27];
+		lfsr[29] <= lfsr[28];
+		lfsr[30] <= lfsr[29];
+		lfsr[31] <= lfsr[30];
+		lfsr[32] <= lfsr[31];
+		lfsr[33] <= lfsr[32];
+		lfsr[34] <= lfsr[33];
+		lfsr[35] <= lfsr[34];
+		lfsr[36] <= lfsr[35];
+		lfsr[37] <= lfsr[36];
+		lfsr[38] <= lfsr[37];
+		lfsr[39] <= lfsr[38];
+		lfsr[40] <= lfsr[39];
+		lfsr[41] <= lfsr[40];
+		lfsr[42] <= lfsr[41];
+		lfsr[43] <= lfsr[42];
+		lfsr[44] <= lfsr[43];
+		lfsr[45] <= lfsr[44];
+		lfsr[46] <= lfsr[45];
+		lfsr[47] <= lfsr[46];
+		lfsr[48] <= lfsr[47];
+		lfsr[49] <= lfsr[48];
+		lfsr[50] <= lfsr[49];
+		lfsr[51] <= lfsr[50];
+		lfsr[52] <= lfsr[51];
+		lfsr[53] <= lfsr[52];
+		lfsr[54] <= lfsr[53];
+		lfsr[55] <= lfsr[54];
+		lfsr[56] <= lfsr[55];
+		lfsr[57] <= lfsr[56];
+		lfsr[58] <= lfsr[57];
+		lfsr[59] <= lfsr[58];
+		lfsr[60] <= lfsr[59];
+		lfsr[61] <= lfsr[60];
+		lfsr[62] <= lfsr[61];
+		lfsr[63] <= lfsr[62];
+		lfsr[64] <= lfsr[63];
+		lfsr[65] <= lfsr[64];
+		lfsr[66] <= lfsr[65];
+		lfsr[67] <= lfsr[66];
+		lfsr[68] <= lfsr[67];
+		lfsr[69] <= lfsr[68];
+		lfsr[70] <= lfsr[69];
+		lfsr[71] <= lfsr[70];
+		lfsr[72] <= lfsr[71];
+		lfsr[73] <= lfsr[72];
+		lfsr[74] <= lfsr[73];
+		lfsr[75] <= lfsr[74];
+		lfsr[76] <= lfsr[75];
+		lfsr[77] <= lfsr[76];
+		lfsr[78] <= lfsr[77];
+		lfsr[79] <= lfsr[78];
+		lfsr[80] <= lfsr[79];
+		lfsr[81] <= lfsr[80];
+		lfsr[82] <= lfsr[81];
+		lfsr[83] <= lfsr[82];
+		lfsr[84] <= lfsr[83];
+		lfsr[85] <= lfsr[84];
+		lfsr[86] <= lfsr[85];
+		lfsr[87] <= lfsr[86];
+		lfsr[88] <= lfsr[87];
+		lfsr[89] <= lfsr[88];
+		lfsr[90] <= lfsr[89];
+		lfsr[91] <= lfsr[90];
+		lfsr[92] <= lfsr[91];
+		lfsr[93] <= lfsr[92];
+		lfsr[94] <= lfsr[93];
+		lfsr[95] <= lfsr[94];
+		lfsr[96] <= lfsr[95];
+		lfsr[97] <= lfsr[96];
+		lfsr[98] <= lfsr[97];
+		lfsr[99] <= lfsr[98];
+		lfsr[100] <= lfsr[99];
+		lfsr[101] <= lfsr[100];
+		lfsr[102] <= lfsr[101];
+		lfsr[103] <= lfsr[102];
+		lfsr[104] <= lfsr[103];
+		lfsr[105] <= lfsr[104];
+		lfsr[106] <= lfsr[105];
+		lfsr[107] <= lfsr[106];
+		lfsr[108] <= lfsr[107];
+		lfsr[109] <= lfsr[108];
+		lfsr[110] <= lfsr[109];
+		lfsr[111] <= lfsr[110];
+		lfsr[112] <= lfsr[111];
+		lfsr[113] <= lfsr[112];
+		lfsr[114] <= lfsr[113];
+		lfsr[115] <= lfsr[114];
+		lfsr[116] <= lfsr[115];
+		lfsr[117] <= lfsr[116];
+		lfsr[118] <= lfsr[117];
+		lfsr[119] <= lfsr[118];
+		lfsr[120] <= lfsr[119];
+		lfsr[121] <= lfsr[120];
+		lfsr[122] <= lfsr[121];
+		lfsr[123] <= lfsr[122];
+		lfsr[124] <= lfsr[123];
+		lfsr[125] <= lfsr[124];
+		lfsr[126] <= lfsr[125];
+		lfsr[127] <= lfsr[126];
+		lfsr[128] <= lfsr[127];
+		lfsr[129] <= lfsr[128];
+		lfsr[130] <= lfsr[129];
+		lfsr[131] <= lfsr[130];
+		lfsr[132] <= lfsr[131];
+		lfsr[133] <= lfsr[132];
+		lfsr[134] <= lfsr[133];
+		lfsr[135] <= lfsr[134];
+		lfsr[136] <= lfsr[135];
+		lfsr[137] <= lfsr[136];
+		lfsr[138] <= lfsr[137];
+		lfsr[139] <= lfsr[138];
+		lfsr[140] <= lfsr[139];
+		lfsr[141] <= lfsr[140];
+		lfsr[142] <= lfsr[141];
+		lfsr[143] <= lfsr[142];
+		lfsr[144] <= lfsr[143];
+		lfsr[145] <= lfsr[144];
+		lfsr[146] <= lfsr[145];
+		lfsr[147] <= lfsr[146];
+		lfsr[148] <= lfsr[147];
+		lfsr[149] <= lfsr[148];
+		lfsr[150] <= lfsr[149];
+		lfsr[151] <= lfsr[150];
+		lfsr[152] <= lfsr[151];
+		lfsr[153] <= lfsr[152];
+		lfsr[154] <= lfsr[153];
+		lfsr[155] <= lfsr[154];
+		lfsr[156] <= lfsr[155];
+		lfsr[157] <= lfsr[156];
+		lfsr[158] <= lfsr[157];
+		lfsr[159] <= lfsr[158];
+		lfsr[160] <= lfsr[159];
+		lfsr[161] <= lfsr[160];
+		lfsr[162] <= lfsr[161];
+		lfsr[163] <= lfsr[162];
+		lfsr[164] <= lfsr[163];
+		lfsr[165] <= lfsr[164];
+		lfsr[166] <= lfsr[165];
+	end
+	
+	function is_rpento;
+		input [19:0] write_addr;
+		begin
+			is_rpento = (write_addr == 9680 | write_addr == 9681 | write_addr == 9841 | write_addr == 9842 | write_addr == 10001);
+		end
+	endfunction
+	
+	function make_output;
+		input [19:0] write_addr;
+		input [9:0] dip;
+		input [2:0] switch;
+		begin
+			make_output = (
+				wdata 
+				& ~dip[0] // suppress output 
+				| dip[1]  // force output
+				// put r-pentomino
+				| (~switch[2] & is_rpento(write_addr))
+				// xor random
+				^ (dip[2] & lfsr[166])
+			);
+		end
+	endfunction
+	
 	// 160x120 bits RAM
 	Cells	cells (
 		.clock ( clk ),
-		.data ( 
-			wdata & ~no_output | force_output 
-			| (~switch[2] & (write_addr == 9680 | write_addr == 9681 | write_addr == 9841 | write_addr == 9842 | write_addr == 10001))),
+		.data ( make_output(write_addr, dip, switch) ),
 		.rdaddress ( read_addr ),
 		.wraddress ( write_addr ),
 		.wren ( write_en ),
@@ -112,13 +305,11 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	wire rdata;
 	wire no_output = dip[1];
 	wire force_output = dip[2];
+
 	VGA vga_module(
 		clk, rgb, hsync, vsync, 
-		write_addr, 
-		( 
-			wdata & ~no_output | force_output 
-			| (~switch[2] & (write_addr == 9680 | write_addr == 9681 | write_addr == 9841 | write_addr == 9842 | write_addr == 10001))),
-		write_en, ~switch[0]);
+		write_addr, make_output(write_addr, dip, switch),
+		write_en, 0);
 	reg [31:0] divide;
 	reg shift_clk, rule_clk, addr_clk;
 	reg blink, blink2;
