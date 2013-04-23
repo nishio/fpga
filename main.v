@@ -92,7 +92,7 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	output [9:0] led;
 	input clk;
 	output hsync, vsync;
-   output [2:0] rgb;
+	output [2:0] rgb;
 
 	reg [166:0] lfsr = 166'h0123456789ABCDEF_CAFEBABE_DEADBEEF;
 	always @(posedge clk) begin
@@ -273,6 +273,7 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	endfunction
 	
 	function make_output;
+		input wdata;
 		input [19:0] write_addr;
 		input [9:0] dip;
 		input [2:0] switch;
@@ -292,7 +293,7 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	// 160x120 bits RAM
 	Cells	cells (
 		.clock ( clk ),
-		.data ( make_output(write_addr, dip, switch) ),
+		.data ( make_output(wdata, write_addr, dip, switch) ),
 		.rdaddress ( read_addr ),
 		.wraddress ( write_addr ),
 		.wren ( write_en ),
@@ -300,15 +301,12 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	);
 	wire cell_q;
 	reg [19:0] write_addr;
-	reg [19:0] read_addr;
+	reg [19:0] read_addr = 20'd161;
 	reg wdata, write_en;
-	wire rdata;
-	wire no_output = dip[1];
-	wire force_output = dip[2];
 
 	VGA vga_module(
 		clk, rgb, hsync, vsync, 
-		write_addr, make_output(write_addr, dip, switch),
+		write_addr, make_output(wdata, write_addr, dip, switch),
 		write_en, 0);
 	reg [31:0] divide;
 	reg shift_clk, rule_clk, addr_clk;
@@ -319,15 +317,12 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	always @(posedge addr_clk) begin
 		read_addr = read_addr + 1'b1;
 		write_addr = write_addr + 1'b1;
-		if(read_addr > 160 * 120) begin
+		if(read_addr >= 160 * 120) begin
 			blink2 = 1;
 			read_addr = 0;
 		end
-		if(read_addr < 322) begin
+		if(write_addr >= 160 * 120) begin
 			write_addr = 0;
-		end else if(read_addr == 322) begin
-			blink2 = 0;
-			write_addr = 161;
 		end
 	end
 	
