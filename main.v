@@ -86,6 +86,20 @@ module VGA(clk, rgb_out, hsync, vsync, write_addr, wdata, write_en, reset_vram);
 	assign rgb_out = (i_hdisp & i_vdisp) ? color : 3'b000;
 endmodule
 
+module LFSR(clk, bits);
+   input clk;
+   output [166:0] bits;
+
+   reg [166:0] lfsr = 166'h0123456789ABCDEF_CAFEBABE_DEADBEEF;
+   always @(posedge clk) begin
+      lfsr[0] <= ^{lfsr[160], lfsr[166]};
+      for(i = 0; i < 166; i = i + 1) begin
+	 lfsr[i + 1] <= lfsr[i];
+      end
+   end
+   assign bits = reg;
+endmodule
+
 module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	input [2:0] switch;
 	input [9:0] dip;
@@ -94,14 +108,6 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	output hsync, vsync;
 	output [2:0] rgb;
 
-	reg [166:0] lfsr = 166'h0123456789ABCDEF_CAFEBABE_DEADBEEF;
-	always @(posedge clk) begin
-		lfsr[0] <= ^{lfsr[160], lfsr[166]};
-		for(i = 0; i < 166; i = i + 1) begin
-			lfsr[i + 1] <= lfsr[i];
-		end
-	end
-	
 	function is_rpento;
 		input [19:0] write_addr;
 		begin
@@ -109,6 +115,10 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 		end
 	endfunction
 	
+   wire [166:0]      lfsr;
+   LFSR LFSR_instance(clk, lfsr);
+
+
 	function make_output;
 		input wdata;
 		input [19:0] write_addr;
