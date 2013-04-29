@@ -1,6 +1,6 @@
-`define WIDTH 160;
-`define HEIGHT 120;
-`define VRAM_SIZE (WIDTH * HEIGHT);
+`define WIDTH 160
+`define HEIGHT 120
+`define VRAM_SIZE (`WIDTH * `HEIGHT)
 
 module VGA(clk, rgb_out, hsync, vsync, write_addr, wdata, write_en, reset_vram);
 	input clk;
@@ -151,11 +151,11 @@ module DE0etude(switch, led, dip, hsync, vsync, rgb, clk);
 	always @(posedge addr_clk) begin
 		read_addr = read_addr + 1'b1;
 		write_addr = write_addr + 1'b1;
-		if(read_addr >= 160 * 120) begin
+		if(read_addr >= `VRAM_SIZE) begin
 			blink2 = 1;
 			read_addr = 0;
 		end
-		if(write_addr >= 160 * 120) begin
+		if(write_addr >= `VRAM_SIZE) begin
 			write_addr = 0;
 		end
 	end
